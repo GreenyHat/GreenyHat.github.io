@@ -12,7 +12,7 @@ app = FastAPI()
 # Configuración de CORS para permitir solicitudes desde el puerto 5500
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500"],  # Permite solicitudes solo desde el puerto 5500
+    allow_origins=["*"],  # Permitir todas las orígenes
     allow_credentials=True,
     allow_methods=["*"],  # Permitir todos los métodos (GET, POST, etc.)
     allow_headers=["*"],  # Permitir todos los encabezados
@@ -39,6 +39,7 @@ class ChatRequest(BaseModel):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
+    print("Recibida solicitud de chat con mensaje:", request.message)  # Log de depuración
     # Respuesta simulada para la demo
     responses = [
         "¡Hola! ¿En qué puedo ayudarte hoy?",
